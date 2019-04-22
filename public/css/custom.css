@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed');
+
+body{
+	font-family: 'Roboto', sans-serif;
+	background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+nav.bg-barrio{
+	background-color: #e31019;
+}
+
+nav a{
+	color: #fff;
+	transition: all 0.5s;
+}
+
+nav a:hover{
+	color: #ff0;
+}
+
+nav a.active{
+	color: #ff0;
+}
+
+img.logo{
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.bg-acopi{
+	background-color: #072251;
+}
+
+.social{
+	color: #e31019;
+}
+
+.hr-text {
+  	position: relative;
+  	outline: 0;
+  	border: 0;
+  	color: black;
+  	text-align: center;
+  	height: 1.5em;
+}
+.hr-text:before {
+	content: '';
+	background: linear-gradient(to right, transparent, #b48360, transparent);
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 1px;
+}
+.hr-text:after {
+	content: attr(data-content);
+	font-size: 25px;
+	font-family: 'Roboto Condensed', sans-serif;
+	position: relative;
+	display: inline-block;
+	color: black;
+	padding: 0 .5em;
+	line-height: 1em;
+	color: #b48360;
+	background-color: #fff;
+}
+
+.card-title{
+	color: #000;
+}
+
+.card-divider{
+	position: relative;
+	transform: translateX(-50%);
+	border: 1.5px solid #b48360;
+	width: 150px;
+	left: 50%;	
+}
+
+.card{
+	border: none;
+}
+
+.card-body{
+	background-color: #eee;
+}
+
+.btn-barrio{
+	background-color: #e31019;
+	color: #fff;
+	transition: all .5s;
+}
+
+.btn-barrio:hover{
+	background-color: #fff;
+	color: #e31019;
+}
+
+.link-barrio{
+	color: #b48360;
+}
+
+.link-barrio:hover{
+	color: #704020;
+}
+
+
+
+
+/* equal card height */
+.row-equal > div[class*='col-'] {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.row-equal .card {
+   width: 100%;
+}
+
+/* ensure equal card height inside carousel */
+.carousel-inner>.row-equal.active, 
+.carousel-inner>.row-equal.next, 
+.carousel-inner>.row-equal.prev {
+    display: flex;
+}
+
+/* prevent flicker during transition */
+.carousel-inner>.row-equal.active.left, 
+.carousel-inner>.row-equal.active.right {
+    opacity: 0.5;
+    display: flex;
+}
+
+
+/* control image height */
+.card-img-top-250 {
+    max-height: 250px;
+    overflow:hidden;
+}
+
+div.container{
+	max-width: 100%;
+}
+
+.btn-direct{
+	border-radius: 0 0 5px 5px;
+	background-color: #016E35;
+	color: #fff;
+	transition: all .5s;
+	width: 100%;
+}
+
+.btn-direct:hover{
+	color: #fff;
+	background-color: #e31019;
+}
+
+
+a.nosotros{
+	background: url(../imgs/nosotros.jpg);
+}
+
+a.eventos{
+	background: url(../imgs/eventos.jpg);
+}
+
+a.actualidad{
+	background: url(../imgs/actualidad.jpg);
+}
+
+a.directorio{
+	background: url(../imgs/directorio.jpg);
+}
+
+a.contacto{
+	background: url(../imgs/contacto.jpg);
+}
+
+a.acceso{
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	background-size: cover;
+	width: 100%;
+	height: 200px;
+	filter: grayscale(1);
+	transition: all .5s;
+}
+
+a.acceso:hover{
+	filter: grayscale(0);
+}
+
+div.contacto{
+	padding: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.testimonials{
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	margin: 50px auto;
+}
+.testimonials .card{
+	background: #ccc;
+	border-radius: 0;
+	box-shadow: 0 10px 40px rgba(0,0,0,.5);
+	box-sizing: border-box;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 20px;
+	position: relative;
+	text-align: center;
+	width: 350px;
+}
+.testimonials .card .layer{
+	background: linear-gradient(#e31019, #016E35);
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: calc(100% - 2px);
+	transition: 0.5s;
+	width: 100%;
+	z-index: 1;
+}
+.testimonials .card:hover .layer{
+	top: 0;
+}
+.testimonials .card .content{
+	position: relative;
+	z-index: 2;
+}
+.testimonials .card .content p{
+	color: #fff;
+	font-size: 18px;
+	line-height: 24px;
+	text-align: justify;
+}
+.testimonials .card .content img{
+	border: 4px solid #fff;
+	box-shadow: 0 10px 20px rgba(0,0,0,.2);
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	width: 100%;
+}
+.testimonials .card .content .details h2{
+	color: #b48360;
+}
+.testimonials .card:hover .content .details h2 {
+	color: #fff;
+}
+
+.testimonials .card .content p strong{
+	color: #b48360;
+}
+
+.testimonials .card:hover .content p strong{
+	color: #fff;
+}
