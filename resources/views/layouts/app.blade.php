@@ -18,7 +18,7 @@
     </div>
     @include('layouts.footer')
     <script src="{{ asset('js/app.js') }}"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.7/dist/sweetalert2.all.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.7/dist/sweetalert2.all.min.js"></script>
     @stack('scripts')
     <script>
         jQuery(document).ready(function($) {

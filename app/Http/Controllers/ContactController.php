@@ -47,8 +47,7 @@ class ContactController extends Controller
         $cnts->correo = $request->input('correo');
         $cnts->numero = $request->input('numero');
         if($cnts->save()) {
-            return redirect('contacts')
-                    ->with('status', 'el contacto '.$cnts->cargo.' se Adiciono con Exito!');
+            return redirect('contacts')->with('success', 'el contacto '.$cnts->cargo.' se Adiciono con Exito!');
         }
     }
 
@@ -110,7 +109,7 @@ class ContactController extends Controller
     {
         $cnts = Contact::findOrFail($id);
         if($cnts->delete()){
-            return redirect('contacts')->with('status', 'El contacto '.$cnts->nombre.' se elimino con Exito.');
+            return redirect('contacts')->with('success', 'El contacto '.$cnts->nombre.' se elimino con Exito.');
         };
     }
 }
