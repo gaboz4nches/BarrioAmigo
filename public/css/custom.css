@@ -199,19 +199,53 @@ div.contacto{
 	padding: 20px;
 }
 
+.hvr-shutter-out-horizontal {
+  -webkit-transform: perspective(1px) translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-property: color;
+  background: #e31019;
+  color: #fff;
+  display: inline-block;
+  position: relative;
+  transform: perspective(1px) translateZ(0);
+  transition-duration: 0.3s;
+  transition-property: color;
+  vertical-align: middle;
+  width: 100%;
+  transition: all 0.5s;
+}
 
+.hvr-shutter-out-horizontal:hover{
+	background-color: transparent;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.hvr-shutter-out-horizontal:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #016E35;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-shutter-out-horizontal:hover, .hvr-shutter-out-horizontal:focus, .hvr-shutter-out-horizontal:active {
+  color: white;
+}
+.hvr-shutter-out-horizontal:hover:before, .hvr-shutter-out-horizontal:focus:before, .hvr-shutter-out-horizontal:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
 
 .testimonials{
 	display: grid;
@@ -275,4 +309,16 @@ div.contacto{
 
 .testimonials .card:hover .content p strong{
 	color: #fff;
+}
+
+.btn-outline-barrio{
+	border: 2px solid #e31019;
+	background-color: transparent;
+	color: #e31019;
+	transition: all 0.5s;
+}
+
+.btn-outline-barrio:hover{
+	color: #fff;
+	background-color:#e31019; 
 }

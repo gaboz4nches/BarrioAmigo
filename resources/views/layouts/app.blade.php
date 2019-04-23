@@ -18,6 +18,33 @@
     </div>
     @include('layouts.footer')
     <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.7/dist/sweetalert2.all.min.js"></script> --}}
     @stack('scripts')
+    <script>
+        jQuery(document).ready(function($) {
+            $('form').on('click', '.btn-upload', function(event) {
+                event.preventDefault();
+                $(this).prev().click();
+            });
+
+            $('form').on('click', '.btn-delete', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Esta seguro?',
+                    text: 'Recuerde que si elimina este registro no lo prodra recuperar',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#016E35',
+                    cancelButtonColor: '#e31019',
+                    confirmButtonText: 'Si, eliminalo!',
+                    cancelButtonText: 'No, cancelar!'
+                }).then((result) => {
+                    if (result.value) {
+                        $(this).parent().submit();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
