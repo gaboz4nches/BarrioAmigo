@@ -17,6 +17,7 @@
         @yield('content') 
     </div>
     @include('layouts.footer')
+    <script src="{{ asset('js/jquery-3.4.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('sweetalert/dist/sweetalert.min.js') }}"></script>
     @stack('scripts')
