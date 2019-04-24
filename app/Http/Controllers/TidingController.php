@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Tiding;
 use App\Http\Requests\TidingRequest;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class TidingController extends Controller
      */
     public function index()
     {
-        return view('tidings.index');
+       return view('tidings.index')->with('tdgs', Tiding::orderBy('id', 'DESC')->paginate(9)->setPath('tidings'));
     }
 
     /**
@@ -25,7 +26,7 @@ class TidingController extends Controller
      */
     public function create()
     {
-        //
+        return view('tidings.create');
     }
 
     /**
@@ -36,7 +37,18 @@ class TidingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+        }
+        $tdgs              = new Tiding;
+        $tdgs->titulo      = $request->input('titulo');
+        $tdgs->foto        = "imgs/".$file;
+        $tdgs->descripcion = $request->input('descripcion');
+        if($tdgs->save()) {
+            return redirect('tidings')
+                    ->with('status', 'La Noticia '.$tdgs->titulo.' se Adiciono con Exito!');
+        }
     }
 
     /**
@@ -47,7 +59,7 @@ class TidingController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('tidings.show')->with('tdgs', Tiding::findOrFail($id));
     }
 
     /**
@@ -58,7 +70,8 @@ class TidingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tdgs = Tiding::find($id);
+        return view('tidings.edit')->with('tdgs', Tiding::findOrFail($id));
     }
 
     /**
@@ -70,7 +83,18 @@ class TidingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tdgs         = Tiding::find($id);
+        $tdgs->titulo = $request->input('titulo');
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+            $tdgs->foto    = "imgs/".$file;
+        }
+        $tdgs->descripcion = $request->input('descripcion');
+        if($tdgs->save()) {
+            return redirect('tidings')
+                    ->with('status', 'La Noticia '.$tdgs->titulo.' se modifico con Exito!');
+        }
     }
 
     /**
@@ -81,6 +105,10 @@ class TidingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tdgs = Tiding::findOrFail($id);
+        if($tdgs->delete()){
+            return redirect('tidings')
+                ->with('status', 'El Proyecto '.$tdgs->titulo.' se elimino con Exito.');
+        };
     }
 }

@@ -5,87 +5,43 @@
 @section('content')
 
 <hr class="hr-text" data-content="Noticias">
+<a href="{{ url('tidings/create') }}" class="btn hvr-shutter-out-horizontal"><i class="fas fa-plus"></i> Nuevs Noticia</a>
 <div class="testimonials">
+    @foreach($tdgs as $tdg)
     <div class="card">
         <div class="layer"></div>
         <div class="content">
             <div class="image">
-                <img src="{{ asset('imgs/feria1.jpg') }}">
+                <img src="{{ $tdg->foto }}">
             </div>
         	<br>
             <div class="details">
-                <h2>Muestra artesanal</h2>
+                <h2>{{ $tdg->titulo }}</h2>
             </div>
             <p>
                 <strong>Descripcion de la noticia:</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id consequuntur delectus blanditiis pariatur, itaque natus officiis fuga ipsam porro. Ipsam dolor soluta, illum repellendus quas consequuntur. Dolor distinctio natus iste!
+                {{ $tdg->descripcion }}
             </p>
+            <a href="{{ url('tidings/'.$tdg->id) }}" class="btn btn-block btn-outline-primary text-capitalize"><i class="fas fa-search"></i> Ver más</a>
+            <br>
             <p>
                 <strong>Fecha:</strong><br>
-                ABR 19
+                <?php 
+                    \Carbon\Carbon::setLocale(config('app.locale'));
+                    $hoy = \Carbon\Carbon::now();
+                    $fna = \Carbon\Carbon::parse($tdg->created_at);
+                ?>
+                {{ date('M d', strtotime($tdg->created_at)) }}
             </p>
+            <a href="{{ url('tidings/'.$tdg->id.'/edit') }}" class="btn btn-success text-capitalize"><i class="fas fa-pencil-alt"></i> Editar</a>
+            <form action="{{ url('tidings/'.$tdg->id) }}" method="post" style="display: inline-block">
+                @method('delete')
+                @csrf
+                <a href="" class="btn btn-delete btn-danger text-capitalize" type="button"><i class="fas fa-trash"></i> Borrar</a>
+            </form>
         </div>
     </div>
-    <div class="card">
-        <div class="layer"></div>
-        <div class="content">
-            <div class="image">
-                <img src="{{ asset('imgs/feria1.jpg') }}">
-            </div>
-        	<br>
-            <div class="details">
-                <h2>Muestra artesanal</h2>
-            </div>
-            <p>
-                <strong>Descripcion de la noticia:</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id consequuntur delectus blanditiis pariatur, itaque natus officiis fuga ipsam porro. Ipsam dolor soluta, illum repellendus quas consequuntur. Dolor distinctio natus iste!
-            </p>
-            <p>
-                <strong>Fecha:</strong><br>
-                ABR 19
-            </p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="layer"></div>
-        <div class="content">
-            <div class="image">
-                <img src="{{ asset('imgs/feria1.jpg') }}">
-            </div>
-        	<br>
-            <div class="details">
-                <h2>Muestra artesanal</h2>
-            </div>
-            <p>
-                <strong>Descripcion de la noticia:</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id consequuntur delectus blanditiis pariatur, itaque natus officiis fuga ipsam porro. Ipsam dolor soluta, illum repellendus quas consequuntur. Dolor distinctio natus iste!
-            </p>
-            <p>
-                <strong>Fecha:</strong><br>
-                ABR 19
-            </p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="layer"></div>
-        <div class="content">
-            <div class="image">
-                <img src="{{ asset('imgs/feria1.jpg') }}">
-            </div>
-        	<br>
-            <div class="details">
-                <h2>Muestra artesanal</h2>
-            </div>
-            <p>
-                <strong>Descripcion de la noticia:</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id consequuntur delectus blanditiis pariatur, itaque natus officiis fuga ipsam porro. Ipsam dolor soluta, illum repellendus quas consequuntur. Dolor distinctio natus iste!
-            </p>
-            <p>
-                <strong>Fecha:</strong><br>
-                ABR 19
-            </p>
-        </div>
-    </div>
+    @endforeach
 </div>
 
 @endsection

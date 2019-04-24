@@ -18,7 +18,7 @@
     </div>
     @include('layouts.footer')
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.7/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('sweetalert/dist/sweetalert.min.js') }}"></script>
     @stack('scripts')
     <script>
         jQuery(document).ready(function($) {
@@ -29,18 +29,17 @@
 
             $('form').on('click', '.btn-delete', function(event) {
                 event.preventDefault();
-                Swal.fire({
-                    title: 'Esta seguro?',
-                    text: 'Recuerde que si elimina este registro no lo prodra recuperar',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#016E35',
-                    cancelButtonColor: '#e31019',
-                    confirmButtonText: 'Si, eliminalo!',
-                    cancelButtonText: 'No, cancelar!'
+                swal({
+                    title: "¿Esta seguro?",
+                    text: "Recuerde que si elimina este registro no lo podra recuperar",
+                    icon: "warning",
+                    buttons: ['Cancelar', 'Eliminar'],
+                    dangerMode: true,
                 }).then((result) => {
-                    if (result.value) {
+                    if (result) {
                         $(this).parent().submit();
+                    } else {
+                        swal("El registro esta a salvo! :)");
                     }
                 });
             });

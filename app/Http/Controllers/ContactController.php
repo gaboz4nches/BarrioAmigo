@@ -109,7 +109,7 @@ class ContactController extends Controller
     {
         $cnts = Contact::findOrFail($id);
         if($cnts->delete()){
-            return redirect('contacts')->with('success', 'El contacto '.$cnts->nombre.' se elimino con Exito.');
+            return redirect('contacts')->with('succes', 'El contacto '.$cnts->nombre.' se elimino con Exito.');
         };
     }
 }
