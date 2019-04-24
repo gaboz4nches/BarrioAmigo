@@ -17,7 +17,7 @@
         		<a class="nav-link" href="#">PRODUCTOS DE NUESTROS ARTESANOS</a>
       		</li> --}}
       		<li class="nav-item">
-        		<a class="nav-link {{ Request::is("events") ? 'active' : '' }}" href="{{ url('events') }}"><i class="fas fa-calendar-alt"></i> EVENTOS</a>
+        		<a class="nav-link {{ Request::is("events") ? 'active' : '' }}" href="{{ url('/events') }}"><i class="fas fa-calendar-alt"></i> EVENTOS</a>
       		</li>
       		<li class="nav-item">
         		<a class="nav-link {{ Request::is("tidings") ? 'active' : '' }}" href="{{ url('tidings') }}"><i class="fas fa-newspaper"></i> NOTICIAS</a>

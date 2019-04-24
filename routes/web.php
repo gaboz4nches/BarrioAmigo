@@ -19,8 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/we', 'WeController@index')->name('we');
+Route::get('/events', 'EventController@index')->name('events');
 
-Route::resource('events', 'EventController');
 Route::resource('tidings', 'TidingController');
 Route::resource('directories', 'DirectoryController');
 Route::resource('contacts', 'ContactController');
+Route::resource('fairs', 'FairController');
+Route::resource('formations', 'FormationController');
