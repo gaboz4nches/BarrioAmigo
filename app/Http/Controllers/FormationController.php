@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Formation;
+use App\Http\Requests\FormationRequest;
 use Illuminate\Http\Request;
 
 class FormationController extends Controller
@@ -23,7 +25,7 @@ class FormationController extends Controller
      */
     public function create()
     {
-        //
+        return view('formations.create');
     }
 
     /**
@@ -34,7 +36,18 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+        }
+        $fmts              = new Formation;
+        $fmts->titulo      = $request->input('titulo');
+        $fmts->foto        = "imgs/".$file;
+        $fmts->descripcion = $request->input('descripcion');
+        if($fmts->save()) {
+            return redirect('events')
+                    ->with('status', 'La Noticia '.$fmts->titulo.' se Adiciono con Exito!');
+        }
     }
 
     /**
@@ -45,7 +58,7 @@ class FormationController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('formations.show')->with('fmts', Formation::findOrFail($id));
     }
 
     /**
@@ -56,7 +69,8 @@ class FormationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $fmts = Formation::find($id);
+        return view('formations.edit')->with('fmts', Formation::findOrFail($id));
     }
 
     /**
@@ -68,7 +82,18 @@ class FormationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fmts         = Formation::find($id);
+        $fmts->titulo = $request->input('titulo');
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+            $fmts->foto    = "imgs/".$file;
+        }
+        $fmts->descripcion = $request->input('descripcion');
+        if($fmts->save()) {
+            return redirect('events')
+                    ->with('status', 'La Noticia '.$fmts->titulo.' se modifico con Exito!');
+        }
     }
 
     /**
@@ -79,6 +104,10 @@ class FormationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fmts = Formation::findOrFail($id);
+        if($fmts->delete()){
+            return redirect('events')
+                ->with('status', 'El Proyecto '.$fmts->titulo.' se elimino con Exito.');
+        };
     }
 }

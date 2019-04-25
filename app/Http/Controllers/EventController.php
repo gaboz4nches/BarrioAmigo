@@ -10,6 +10,6 @@ class EventController extends Controller
 {
     public function index()
     {
-        return view('events');
+        return view('events')->with('cnts', Contact::orderBy('id', 'DESC'));
     }
 }

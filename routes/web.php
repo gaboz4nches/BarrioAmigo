@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/events', function (){
+	$fmts = App\Formation::orderBy('id', 'DESC')->get();
+	return view('events')->with('fmts', $fmts);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/we', 'WeController@index')->name('we');
-Route::get('/events', 'EventController@index')->name('events');
 
 Route::resource('tidings', 'TidingController');
 Route::resource('directories', 'DirectoryController');
