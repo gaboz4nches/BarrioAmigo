@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Route::get('/events', function (){
 	$fmts = App\Formation::orderBy('id', 'DESC')->get();
-	return view('events')->with('fmts', $fmts);
+	$fars = App\Fair::orderBy('id', 'DESC')->get();
+	return view('events')->with('fmts', $fmts)->with('fars', $fars);
 });
 
 Auth::routes();
