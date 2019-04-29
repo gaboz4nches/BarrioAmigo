@@ -15,7 +15,7 @@ class DirectoryController extends Controller
      */
     public function index()
     {
-        return view('directories.index');
+       return view('directories.index')->with('drts', Directory::orderBy('id', 'DESC')->paginate(9)->setPath('directories'));
     }
 
     /**
@@ -25,7 +25,7 @@ class DirectoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('directories.create');
     }
 
     /**
@@ -36,7 +36,18 @@ class DirectoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+        }
+        $drts              = new Directory;
+        $drts->nombre      = $request->input('nombre');
+        $drts->foto        = "imgs/".$file;
+        $drts->descripcion = $request->input('descripcion');
+        if($drts->save()) {
+            return redirect('directories')
+                    ->with('status', 'La Noticia '.$drts->nombre.' se Adiciono con Exito!');
+        }
     }
 
     /**
@@ -47,7 +58,7 @@ class DirectoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('directories.show')->with('drts', Directory::findOrFail($id));
     }
 
     /**
