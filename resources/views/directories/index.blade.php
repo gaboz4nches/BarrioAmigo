@@ -13,6 +13,12 @@
 		<img class="img-direct" src="{{ asset( $drt->foto ) }}" alt="" width="100%">
 		<br>
 		<a class="btn btn-direct" href="{{ url('directories/'.$drt->id) }}">Ver los productos de este artesano</a>
+		<a href="{{ url('directories/'.$drt->id.'/edit') }}" class="btn btn-success text-capitalize"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <form action="{{ url('directories/'.$drt->id) }}" method="post" style="display: inline-block">
+            @method('delete')
+            @csrf
+            <a href="" class="btn btn-delete btn-danger text-capitalize" type="button"><i class="fas fa-trash"></i> Borrar</a>
+        </form>
 	</div>
 	@endforeach
 

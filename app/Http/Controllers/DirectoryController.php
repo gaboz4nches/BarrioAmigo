@@ -69,7 +69,8 @@ class DirectoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $drts = Directory::find($id);
+        return view('directories.edit')->with('drts', Directory::findOrFail($id));
     }
 
     /**
@@ -81,7 +82,18 @@ class DirectoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $drts         = Directory::find($id);
+        $drts->nombre = $request->input('nombre');
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+            $drts->foto    = "imgs/".$file;
+        }
+        $drts->descripcion = $request->input('descripcion');
+        if($drts->save()) {
+            return redirect('directories')
+                    ->with('status', 'La Noticia '.$drts->nombre.' se modifico con Exito!');
+        }
     }
 
     /**
@@ -92,6 +104,10 @@ class DirectoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $drts = Directory::findOrFail($id);
+        if($drts->delete()){
+            return redirect('directories')
+                ->with('status', 'El Proyecto '.$drts->titulo.' se elimino con Exito.');
+        };
     }
 }
