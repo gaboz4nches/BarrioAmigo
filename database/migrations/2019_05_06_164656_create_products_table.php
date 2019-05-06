@@ -15,7 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('directory_id')->unsigned();
+            $table->longText('foto');
+            $table->longText('nombre');
+            $table->unsignedBigInteger('directory_id');
             $table->foreign('directory_id')->references('id')->on('directories');
             $table->timestamps();
         });

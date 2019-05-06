@@ -31,3 +31,4 @@ Route::resource('directories', 'DirectoryController');
 Route::resource('contacts', 'ContactController');
 Route::resource('fairs', 'FairController');
 Route::resource('formations', 'FormationController');
+Route::resource('products', 'ProductController');

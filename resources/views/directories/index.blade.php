@@ -6,6 +6,7 @@
 
 <hr class="hr-text" data-content="Directorio">
 <a class="btn btn-barrio" href="{{ url('directories/create') }}"><i class="fas fa-plus"></i> Añadir nuevo directorio</a>
+<a class="btn btn-barrio" href="{{ url('products/create') }}"><i class="fas fa-plus"></i> Añadir nuevo producto</a>
 <br><br>
 <div class="row justify-content-center">
 	@foreach( $drts as $drt)

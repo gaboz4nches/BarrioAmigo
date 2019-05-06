@@ -19,7 +19,7 @@
 			<div style="width: 100%; height: 100%; background-color: rgba( 255, 255, 255, .5);">
 				<div class="text-center py-5 px-4">
 					<div class="py-5">
-  						<h2 class="card-title h2 my-4 py-2">Historia de nuestro artesano {{ $drts->nombre }}</h2>
+  						<h2 class="card-title h2 my-4 py-2">Conoce mas sobre nuestro artesano {{ $drts->nombre }}</h2>
 						<p class="mb-4 pb-2 px-md-5 mx-md-5">{{ $drts->descripcion }}</p>
   					</div>	
 				</div>
