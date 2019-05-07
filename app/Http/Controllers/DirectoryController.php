@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Directory;
 use App\Http\Request\DirectoryRequest;
 use Illuminate\Http\Request;
@@ -58,7 +59,9 @@ class DirectoryController extends Controller
      */
     public function show($id)
     {
-        return view('directories.show')->with('drts', Directory::findOrFail($id));
+        $drts = Directory::find($id);
+        $prds = Product::all();
+        return view('directories.show')->with('drts', $drts)->with('prds', $prds);
     }
 
     /**

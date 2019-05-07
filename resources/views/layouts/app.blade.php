@@ -20,6 +20,7 @@
     <script src="{{ asset('js/jquery-3.4.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     @stack('scripts')
     <script>
         jQuery(document).ready(function($) {
