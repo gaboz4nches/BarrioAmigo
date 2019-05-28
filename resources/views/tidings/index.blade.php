@@ -5,7 +5,9 @@
 @section('content')
 
 <hr class="hr-text" data-content="Noticias">
-<a href="{{ url('tidings/create') }}" class="btn hvr-shutter-out-horizontal"><i class="fas fa-plus"></i> Nuevs Noticia</a>
+@if (Auth::check() && Auth::user()->role == "admin")
+    <a href="{{ url('tidings/create') }}" class="btn hvr-shutter-out-horizontal"><i class="fas fa-plus"></i> Nueva Noticia</a>
+@endif
 <div class="testimonials">
     @foreach($tdgs as $tdg)
     <div class="card">
@@ -33,12 +35,14 @@
                 ?>
                 {{ date('M d', strtotime($tdg->created_at)) }}
             </p>
-            <a href="{{ url('tidings/'.$tdg->id.'/edit') }}" class="btn btn-success text-capitalize"><i class="fas fa-pencil-alt"></i> Editar</a>
-            <form action="{{ url('tidings/'.$tdg->id) }}" method="post" style="display: inline-block">
-                @method('delete')
-                @csrf
-                <a href="" class="btn btn-delete btn-danger text-capitalize" type="button"><i class="fas fa-trash"></i> Borrar</a>
-            </form>
+            @if (Auth::check() && Auth::user()->role == "admin")
+                <a href="{{ url('tidings/'.$tdg->id.'/edit') }}" class="btn btn-success text-capitalize"><i class="fas fa-pencil-alt"></i> Editar</a>
+                <form action="{{ url('tidings/'.$tdg->id) }}" method="post" style="display: inline-block">
+                    @method('delete')
+                    @csrf
+                    <a href="" class="btn btn-delete btn-danger text-capitalize" type="button"><i class="fas fa-trash"></i> Borrar</a>
+                </form>
+            @endif
         </div>
     </div>
     @endforeach

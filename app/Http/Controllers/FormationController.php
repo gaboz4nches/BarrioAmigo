@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Formation;
 use App\Http\Requests\FormationRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class FormationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,13 @@ class FormationController extends Controller
      */
     public function create()
     {
-        return view('formations.create');
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return view('formations.create');
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -69,8 +80,14 @@ class FormationController extends Controller
      */
     public function edit($id)
     {
-        $fmts = Formation::find($id);
-        return view('formations.edit')->with('fmts', Formation::findOrFail($id));
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $fmts = Formation::find($id);
+            return view('formations.edit')->with('fmts', Formation::findOrFail($id));
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**

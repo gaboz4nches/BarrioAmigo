@@ -71,7 +71,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prds = Product::find($id);
+        $drts = Directory::all();
+        return view('products.edit')->with('prds', Product::findOrFail($id))->with('drts', $drts);
     }
 
     /**
@@ -83,7 +85,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $prds         = Product::find($id);
+        $prds->nombre = $request->input('nombre');
+        if ($request->hasFile('foto')) {
+            $file = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('imgs'), $file);
+            $prds->foto    = "imgs/".$file;
+        }
+        $prds->directory_id = $request->input('directory_id');
+        if($prds->save()) {
+            return redirect('directories')
+                    ->with('status', 'La Noticia '.$prds->nombre.' se modifico con Exito!');
+        }
     }
 
     /**
@@ -94,6 +107,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $prds = Product::findOrFail($id);
+        if($prds->delete()){
+            return redirect('directories')
+                ->with('status', 'El Proyecto '.$prds->titulo.' se elimino con Exito.');
+        };
     }
 }

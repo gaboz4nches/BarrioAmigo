@@ -5,7 +5,9 @@
 @section('content')
 
 <hr class="hr-text" data-content="Contactanos">
-<a href="{{ url('contacts/create') }}" class="btn hvr-shutter-out-horizontal"><i class="fas fa-plus"></i> Nuevo Contacto</a>
+@if (Auth::check() && Auth::user()->role == "admin")
+	<a href="{{ url('contacts/create') }}" class="btn hvr-shutter-out-horizontal"><i class="fas fa-plus"></i> Nuevo Contacto</a>
+@endif
 <div class="row justify-content-center">
 	@foreach($cnts as $cnt)
 		<div class="card contacto" style="width: 18rem;">
@@ -17,14 +19,16 @@
 				<li class="list-group-item"><strong>Cargo:</strong><br> {{ $cnt->cargo }}</li>
 				<li class="list-group-item"><strong>Correo:</strong><br> {{ $cnt->correo }}</li>
 				<li class="list-group-item"><strong>Número de contacto:</strong> {{ $cnt->numero }}</li>
-				<li class="list-group-item">
-					<a href="{{ url('contacts/'.$cnt->id.'/edit') }}" class="btn btn-success btn-block"><i class="fas fa-pencil-alt"></i> Editar</a>
-					<form action="{{ url('contacts/'.$cnt->id) }}" method="post" >
-	            		@method('delete')
-	                	@csrf
-	            		<a href="" class="btn btn-delete btn-block btn-danger" type="button"><i class="fas fa-trash"></i> Borrar</a>
-	        		</form>
-				</li>
+				@if (Auth::check() && Auth::user()->role == "admin")
+					<li class="list-group-item">
+						<a href="{{ url('contacts/'.$cnt->id.'/edit') }}" class="btn btn-success btn-block"><i class="fas fa-pencil-alt"></i> Editar</a>
+						<form action="{{ url('contacts/'.$cnt->id) }}" method="post" >
+	            			@method('delete')
+	                		@csrf
+	            			<a href="" class="btn btn-delete btn-block btn-danger" type="button"><i class="fas fa-trash"></i> Borrar</a>
+	        			</form>
+					</li>
+				@endif
 			</ul>
 		</div>
 	@endforeach

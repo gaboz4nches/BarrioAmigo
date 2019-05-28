@@ -28,6 +28,14 @@
       		<li class="nav-item">
         		<a class="nav-link {{ Request::is("contacts") ? 'active' : '' }}" href="{{ url('contacts') }}"><i class="fas fa-address-card"></i> CONTACTO</a>
       		</li>
+            @auth
+            <li class="nav-item">
+                <a class="nav-link hvr-sweep-to-bottom" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                <form id="logout-form" action="{{ route('logout')}}" method="POST" style="display: none">
+                    @csrf
+                </form>
+            </li>
+            @endauth
     	</ul>
   	</div>
 </nav>

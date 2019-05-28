@@ -6,9 +6,14 @@ use Carbon\Carbon;
 use App\Tiding;
 use App\Http\Requests\TidingRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class TidingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,13 @@ class TidingController extends Controller
      */
     public function create()
     {
-        return view('tidings.create');
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return view('tidings.create');
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -70,8 +81,14 @@ class TidingController extends Controller
      */
     public function edit($id)
     {
-        $tdgs = Tiding::find($id);
-        return view('tidings.edit')->with('tdgs', Tiding::findOrFail($id));
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $tdgs = Tiding::find($id);
+            return view('tidings.edit')->with('tdgs', Tiding::findOrFail($id));
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**

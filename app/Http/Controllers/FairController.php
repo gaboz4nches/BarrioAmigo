@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Fair;
 use App\Http\Requests\FairRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class FairController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,13 @@ class FairController extends Controller
      */
     public function create()
     {
-        return view('fairs.create');
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return view('fairs.create');
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -69,8 +80,14 @@ class FairController extends Controller
      */
     public function edit($id)
     {
-        $fars = Fair::find($id);
-        return view('fairs.edit')->with('fars', Fair::findOrFail($id));
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $fars = Fair::find($id);
+            return view('fairs.edit')->with('fars', Fair::findOrFail($id));
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**

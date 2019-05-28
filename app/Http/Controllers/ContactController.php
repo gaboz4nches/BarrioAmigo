@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\Http\Request\ContactRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,13 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return view('contacts.create');
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -70,8 +81,14 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        $cnts = Contact::find($id);
-        return view('contacts.edit')->with('cnts', Contact::findOrFail($id));
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $cnts = Contact::find($id);
+            return view('contacts.edit')->with('cnts', Contact::findOrFail($id));
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**

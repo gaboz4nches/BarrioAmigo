@@ -6,9 +6,14 @@ use App\Product;
 use App\Directory;
 use App\Http\Request\DirectoryRequest;
 use Illuminate\Http\Request;
+use Auth;
 
 class DirectoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,12 @@ class DirectoryController extends Controller
      */
     public function create()
     {
-        return view('directories.create');
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            return view('directories.create');
+        }else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -72,8 +82,13 @@ class DirectoryController extends Controller
      */
     public function edit($id)
     {
-        $drts = Directory::find($id);
-        return view('directories.edit')->with('drts', Directory::findOrFail($id));
+        $user = Auth::user();
+        if ($user->role == 'admin') {
+            $drts = Directory::find($id);
+            return view('directories.edit')->with('drts', Directory::findOrFail($id));
+        }else{
+            return redirect('/home');
+        }
     }
 
     /**
